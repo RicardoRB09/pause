@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block title %}Movies{% endblock %} {% block content
+%}
+<div class="flex-col col-md-12 d-flex">
+  <p class="p-input-title">Input the TMDB number page to get the movies :</p>
+
+  <form
+    method="post"
+    class="d-flex justify-content-center align-items-center col-md-12 flex-row"
+  >
+    <div>
+      <input
+        type="text"
+        class="form-control input-movie"
+        name="movie_page"
+        value="{{request.form['movie_page']}}"
+        min="1"
+        placeholder="Input a page number"
+      />
+    </div>
+    <button class="btn-go" type="submit">Go</button>
+  </form>
+
+  <div class="container container-movie col-md-10">
+    <div class="container-movie-list">
+      {% for movie in movies %}
+      <div
+        class="justify-content-center align-items-center col-md-12 flex-row pb-3"
+      >
+        <img
+          src="{{'https://image.tmdb.org/t/p/w200' + movie['poster_path']}}"
+          class="movie-image"
+        />
+        <div>
+          <h5>{{movie['title']}}</h5>
+          <h6>{{movie['release_date']}}</h6>
+          <b>Overview</b>
+          <p>{{movie['overview']}}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

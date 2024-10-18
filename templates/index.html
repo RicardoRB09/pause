@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %}Pause{% endblock title %} {% block
+content %}
+<button
+  type="button"
+  data-mdb-button-init
+  data-mdb-ripple-init
+  class="btn btn-light btn-square-md mx-4"
+  data-mdb-ripple-color="dark"
+  onclick="window.location='{{url_for('books')}}'"
+>
+  <img src="{{ url_for('static', filename='img/book.png')}}" />
+</button>
+
+<button
+  type="button"
+  data-mdb-button-init
+  data-mdb-ripple-init
+  class="btn btn-light btn-square-md mx-4"
+  data-mdb-ripple-color="dark"
+  onclick="window.location='{{url_for('movies')}}'"
+>
+  <img src="{{ url_for('static', filename='img/movie_reel.png')}}" />
+</button>
+{% endblock %}
