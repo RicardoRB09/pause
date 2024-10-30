@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request
-from movies import clearTerminal, get_movies_by_page
+from movies import get_movies_by_page
+from books import scrapBooksByPage
 
 app = Flask(__name__)
 app.config['ENV'] = "development"
@@ -10,9 +11,17 @@ def home():
     return render_template("index.html")
 
 
-@app.route('/books')
+@app.route('/books', methods={'POST', 'GET'})
 def books():
-    return render_template('books.html')
+    if request.method == 'POST':
+        page_number = request.form['book_page']
+        if page_number.isdigit() and int(page_number) > 0 and int(page_number) < 51:
+            books = scrapBooksByPage(page_number)
+        else:
+            books = scrapBooksByPage(1)
+    else:
+        books = scrapBooksByPage(1)
+    return render_template('books.html', books = books)
 
 
 @app.route('/movies', methods=['POST', 'GET'])

@@ -15,15 +15,16 @@ body img{
     width: 100%;
 }
 
+main{
+    height: 100vh;
+    display: flex;
+}
+
 .container{
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
-main{
-    height: 100vh;
-    display: flex;
-}
 
 .col-md-4, .col-md-12 {
     display: flex;
@@ -68,6 +69,15 @@ footer div a{
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.btn-square-sm {
+    width: 30px !important;
+    height: 30px !important;
+    text-align: center;
+    padding: 4px;
+    font-size:12px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 2px 10px;
+}
+
 .btn-go{
     padding-left: 16px;
     margin: 0%;
@@ -86,6 +96,11 @@ footer div a{
     border: 1px solid #ccc;
     /* background-color: blue; */
     padding: 16px;
+}
+
+.img-btn-home{
+    width: 100%;  
+    height: auto;
 }
 
 .input-movie{

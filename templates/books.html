@@ -1,4 +1,64 @@
 {% extends "base.html" %} {% block title %}Books{% endblock %}{% block content
 %}
-<p>Books</p>
+<div class="flex-col col-md-12 d-flex">
+  <p class="p-input-title">Input the page number to get the books :</p>
+
+  <form
+    method="post"
+    class="d-flex justify-content-center align-items-center col-md-12 flex-row"
+  >
+    <div class="col-md-1 d-flex justify-content-start align-items-start">
+      <button
+        type="button"
+        data-mdb-button-init
+        data-mdb-ripple-init
+        class="btn btn-light btn-square-sm mx-3"
+        data-mdb-ripple-color="dark"
+        onclick="window.location='{{url_for('home')}}'"
+      >
+        <img
+          src="{{ url_for('static', filename='img/home.png')}}"
+          class="img-btn-home"
+        />
+      </button>
+    </div>
+
+    <div class="col-md-8 d-flex justify-content-center align-items-center">
+      <div>
+        <input
+          type="text"
+          class="form-control input-book"
+          name="book_page"
+          value="{{request.form['book_page']}}"
+          min="1"
+          placeholder="Input a page number"
+        />
+      </div>
+      <button class="btn-go" type="submit">Go</button>
+    </div>
+
+    <div
+      class="col-md-1 d-flex justify-content-center align-items-center"
+    ></div>
+  </form>
+
+  <div class="container container-movie col-md-10">
+    <div class="container-movie-list">
+      {% for book in books %}
+      <div
+        class="justify-content-center align-items-center col-md-12 flex-row pb-3"
+      >
+        <img src="{{book['imageAddress']}}" class="movie-image" />
+        <div>
+          <h5>{{book['title']}}</h5>
+          <h6>{{book['price']}}</h6>
+          <b>Overview</b>
+          <p>{{book['description']}}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 {% endblock %}
