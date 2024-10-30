@@ -1,0 +1,12 @@
+# Ignore environment-specific settings
+env/
+.env
+
+# Ignore compiled Python bytecode files
+*.pyc
+
+# Ignore Python cache directories
+__pycache__/
+
+# Ignore yaml files
+*.yaml
