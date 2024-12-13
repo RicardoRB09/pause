@@ -17,4 +17,5 @@ moviedb:
     api_key: [your api_key]
     access_token: [your access_token]
 ```
+  There is example file named  **example-auth.yaml**, you can use it and change it's name as auth.yaml. 
 * Run the **run.py** script and enjoy. 
