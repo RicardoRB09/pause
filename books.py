@@ -43,7 +43,15 @@ def scrapBooksByPage(page):
     books.clear()
     baseUrl = f'https://books.toscrape.com/catalogue/page-{page}.html'
     print(baseUrl)
+    
     response = requests.get(baseUrl)
+    print(f'response --> {response.status_code}')
+    
+    if response.status_code != 200:
+        print('⚠️⚠️ Cannot continue with the execution... Try again! ⚠️⚠️\n')
+        # sys.exit()
+        return []
+    
     beautifulResponse = BeautifulSoup(response.content, 'html.parser')
 
     olTagData = beautifulResponse.find('ol', class_='row')

@@ -13,27 +13,42 @@ def home():
 
 @app.route('/books', methods={'POST', 'GET'})
 def books():
-    if request.method == 'POST':
+    # if request.method == 'POST':
+    #     page_number = request.form['book_page']
+    #     if page_number.isdigit() and int(page_number) > 0 and int(page_number) < 51:
+    #         books = scrapBooksByPage(page_number)
+    #     else:
+    #         books = scrapBooksByPage(1)
+    # else:
+    #     books = scrapBooksByPage(1)
+    try:
         page_number = request.form['book_page']
-        if page_number.isdigit() and int(page_number) > 0 and int(page_number) < 51:
-            books = scrapBooksByPage(page_number)
-        else:
-            books = scrapBooksByPage(1)
-    else:
-        books = scrapBooksByPage(1)
+    except:
+        page_number = 0
+   
+    books = scrapBooksByPage(page_number)
     return render_template('books.html', books = books)
 
 
 @app.route('/movies', methods=['POST', 'GET'])
 def movies():
-    if request.method == 'POST':
+    # if request.method == 'POST':
+    #     page_number = request.form['movie_page']
+    #     if page_number.isdigit() and int(page_number) > 0 and int(page_number) < 22:
+    #         movies = get_movies_by_page(page_number)['results']
+    #     else:
+    #         movies = get_movies_by_page(1)['results']
+    # else:
+    #     movies = get_movies_by_page(1)['results']
+    # return render_template('movies.html', movies = movies)
+    
+    try:
         page_number = request.form['movie_page']
-        if page_number.isdigit() and int(page_number) > 0 and int(page_number) < 22:
-            movies = get_movies_by_page(page_number)['results']
-        else:
-            movies = get_movies_by_page(1)['results']
-    else:
-        movies = get_movies_by_page(1)['results']
+        print('---- Try movie_page ----')
+    except:
+        page_number = 0
+   
+    movies = get_movies_by_page(page_number)
     return render_template('movies.html', movies = movies)
 
 

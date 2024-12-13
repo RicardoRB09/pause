@@ -33,11 +33,14 @@ def get_movies_by_page(page):
     
     response = requests.get(url, headers=headers)
     
+    print(response.status_code)
+    
     if response.status_code != 200:
         print('⚠️⚠️ Cannot continue with the execution... Try again! ⚠️⚠️\n')
-        sys.exit()
+        # sys.exit()
+        return []
         
-    return json.loads(response.content)
+    return json.loads(response.content)['results']
 
     
 

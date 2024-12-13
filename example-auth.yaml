@@ -1,0 +1,3 @@
+moviedb:
+  api_key: YOUR_API_KEY_HERE
+  access_token: YOUR_ACCESS_TOKEN_HERE

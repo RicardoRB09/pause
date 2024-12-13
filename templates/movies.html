@@ -6,6 +6,7 @@
   <form
     method="post"
     class="d-flex justify-content-center align-items-center col-md-12 flex-row"
+    onsubmit="showLoading()"
   >
     <div class="col-md-1 d-flex justify-content-start align-items-start">
       <button
@@ -26,7 +27,7 @@
     <div class="col-md-8 d-flex justify-content-center align-items-center">
       <div>
         <input
-          type="text"
+          type="number"
           class="form-control input-movie"
           name="movie_page"
           value="{{request.form['movie_page']}}"
@@ -42,9 +43,20 @@
     ></div>
   </form>
 
-  <div class="container container-movie col-md-10">
+  <div
+    id="loading"
+    class="col-md-10 container container-loading justify-content-center align-items-center"
+    style="display: none !important"
+  >
+    <img
+      class="loading-gif"
+      src="{{ url_for('static', filename='img/loading.gif')}}"
+    />
+  </div>
+
+  <div id="movies-container" class="container container-movie col-md-10">
+    {% if movies %} {% for movie in movies %}
     <div class="container-movie-list">
-      {% for movie in movies %}
       <div
         class="justify-content-center align-items-center col-md-12 flex-row pb-3"
       >
@@ -59,9 +71,31 @@
           <p>{{movie['overview']}}</p>
         </div>
       </div>
-      {% endfor %}
     </div>
+    {% endfor %} {% else %}
+
+    <div
+      class="container-no-movies justify-content-center align-items-center d-flex flex-column"
+    >
+      <img
+        src="{{ url_for('static', filename='img/no-movies.png') }}"
+        class="img-no-movies"
+      />
+      <p class="p-no-movies">No movies available, try another page.</p>
+    </div>
+    {% endif %}
   </div>
 </div>
+
+<script>
+  function showLoading() {
+    document.getElementById("loading").style.display = "flex";
+    document.getElementById("movies-container").style.display = "none";
+  }
+
+  window.addEventListener("load", function () {
+    document.getElementById("loading").style.display = "none";
+  });
+</script>
 
 {% endblock %}

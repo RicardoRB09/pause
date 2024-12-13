@@ -9,4 +9,4 @@ env/
 __pycache__/
 
 # Ignore yaml files
-*.yaml
+/auth.yaml
