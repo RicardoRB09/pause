@@ -4,7 +4,7 @@
 # Crea un menu HTML al inicio del archivo para que enlace ambas páginas y permita navegar entre ellas fácilmente (no se evaluará diseño CSS). El menu HTML puede ser añadido a la tabla manualmente o por código
 
 
-import requests, json, yaml, os, sys
+import requests, json, yaml, os
 
 
 MOVIEDB_CONFIG_FILE = "auth.yaml"
@@ -12,6 +12,8 @@ MOVIEDB_CONFIG_FILE = "auth.yaml"
 movies = []
 
 base_poster_path_url = 'https://image.tmdb.org/t/p/w200'
+
+
       
     
 def get_movies_by_page(page):
@@ -37,7 +39,6 @@ def get_movies_by_page(page):
     
     if response.status_code != 200:
         print('⚠️⚠️ Cannot continue with the execution... Try again! ⚠️⚠️\n')
-        # sys.exit()
         return []
         
     return json.loads(response.content)['results']

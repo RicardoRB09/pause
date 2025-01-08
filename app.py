@@ -1,26 +1,24 @@
 from flask import Flask, render_template, redirect, request
 from movies import get_movies_by_page
 from books import scrapBooksByPage
+from models import delete_movie_database, init_movies_database, add_data_to_movies_db, is_page_consulted, get_movies_from_db
+import datetime
+
 
 app = Flask(__name__)
 app.config['ENV'] = "development"
 app.config['DEBUG'] = True
+
+
 
 @app.route('/')
 def home():
     return render_template("index.html")
 
 
+
 @app.route('/books', methods={'POST', 'GET'})
 def books():
-    # if request.method == 'POST':
-    #     page_number = request.form['book_page']
-    #     if page_number.isdigit() and int(page_number) > 0 and int(page_number) < 51:
-    #         books = scrapBooksByPage(page_number)
-    #     else:
-    #         books = scrapBooksByPage(1)
-    # else:
-    #     books = scrapBooksByPage(1)
     try:
         page_number = request.form['book_page']
     except:
@@ -30,26 +28,22 @@ def books():
     return render_template('books.html', books = books)
 
 
+
 @app.route('/movies', methods=['POST', 'GET'])
-def movies():
-    # if request.method == 'POST':
-    #     page_number = request.form['movie_page']
-    #     if page_number.isdigit() and int(page_number) > 0 and int(page_number) < 22:
-    #         movies = get_movies_by_page(page_number)['results']
-    #     else:
-    #         movies = get_movies_by_page(1)['results']
-    # else:
-    #     movies = get_movies_by_page(1)['results']
-    # return render_template('movies.html', movies = movies)
-    
+def movies():    
     try:
         page_number = request.form['movie_page']
-        print('---- Try movie_page ----')
     except:
         page_number = 0
-   
-    movies = get_movies_by_page(page_number)
+        
+    if is_page_consulted(page_number):
+        movies = get_movies_from_db(page_number)
+    else:
+        movies = get_movies_by_page(page_number)
+        add_data_to_movies_db(movies, page_number)
+    
     return render_template('movies.html', movies = movies)
+
 
 
 @app.route('/myportfolio')
@@ -57,6 +51,9 @@ def myPortfolio():
     return redirect("https://www.ricardoracines.com")
 
 
+
 if __name__ == "__main__":
+    delete_movie_database()
+    init_movies_database()
     app.run()
     
