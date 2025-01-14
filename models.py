@@ -3,6 +3,7 @@ import peewee, datetime
 image_base_url = 'https://image.tmdb.org/t/p/w200'
 
 db_movies = peewee.SqliteDatabase('movies.db')
+db_books = peewee.SqliteDatabase('books.db')
 
 class Movie(peewee.Model):
     
@@ -15,67 +16,143 @@ class Movie(peewee.Model):
     class Meta:
         database = db_movies
         
+    @classmethod    
+    def init_movies_database(cls):
         
-        
-def init_movies_database():
-    
-    if db_movies.is_closed():
-        db_movies.connect()
-    else:
-        db_movies.close()
+        if db_movies.is_closed():
+            db_movies.connect()
+        else:
+            db_movies.close()
 
-    db_movies.create_tables([Movie], safe=True)
-    
-    
-    
-def delete_movie_database():
-    Movie.drop_table()
-    
-    
-    
-def is_page_consulted(page):
-    movie = Movie.get_or_none(page = page)
-    
-    if movie is not None:
-        return True
-    
-    return False
-    
-    
-    
-def add_data_to_movies_db(movies, page):
-    
-    for movie in movies:
-        try:
-            Movie.create(
-                page = page,
-                title = movie['title'],
-                release_date = movie['release_date'],
-                overview = movie['overview'],
-                image_url = image_base_url + movie['poster_path']
-            )
-        except:
-            print(f'Data duplicated')
-            
-            
-            
-def get_movies_from_db(page):
-    movies_as_json = []
-    movies = Movie.select().where(Movie.page == page)
-    
-    for movie in movies:
-        print(movie.title)
-        movies_as_json.append(
-            {
-                'title' : movie.title,
-                'release_date' : movie.release_date,
-                'overview' : movie.overview,
-                'poster_path' : image_base_url + movie.image_url,
-            }
-        )
+        db_movies.create_tables([Movie], safe=True)
         
-    db_movies.close()
+        
+    @classmethod
+    def delete_movie_database(cls):
+        Movie.drop_table()
+        
+        
+    @classmethod    
+    def is_page_consulted(cls, page):
+        movie = Movie.get_or_none(page = page)
+        
+        if movie is not None:
+            return True
+        
+        return False
+        
+        
+    @classmethod    
+    def add_data_to_movies_db(cls, movies, page):
+        
+        for movie in movies:
+            try:
+                Movie.create(
+                    page = page,
+                    title = movie['title'],
+                    release_date = movie['release_date'],
+                    overview = movie['overview'],
+                    image_url = image_base_url + movie['poster_path']
+                )
+            except:
+                print(f'Data duplicated')
+                continue
+                
+                
+    @classmethod       
+    def get_movies_from_db(cls, page):
+        movies_as_json = []
+        movies = Movie.select().where(Movie.page == page)
+        
+        for movie in movies:
+            print(movie.title)
+            movies_as_json.append(
+                {
+                    'title' : movie.title,
+                    'release_date' : movie.release_date,
+                    'overview' : movie.overview,
+                    'poster_path' : image_base_url + movie.image_url,
+                }
+            )
+        
+        return movies_as_json
+        
+        
+class Book(peewee.Model):
     
-    return movies_as_json
+    page = peewee.IntegerField()
+    title = peewee.TextField()
+    price = peewee.TextField()
+    description = peewee.TextField()
+    image_address = peewee.TextField()
+    
+    class Meta:
+        database = db_movies
+        
+    @classmethod    
+    def init_books_database(cls):
+        
+        if db_books.is_closed():
+            db_books.connect()
+        else:
+            db_books.close()
+
+        db_books.create_tables([Book], safe=True)
+        
+        
+    @classmethod
+    def delete_book_database(cls):
+        Book.drop_table()
+        
+        
+    @classmethod    
+    def is_page_consulted(cls, page):
+        book = Book.get_or_none(page = page)
+        
+        if book is not None:
+            return True
+        
+        return False
+        
+        
+    @classmethod    
+    def add_data_to_books_db(cls, books, page):
+        
+        for book in books:
+            try:
+                Book.create(
+                    page = page,
+                    title = book['title'],
+                    price = book['price'],
+                    description = book['description'],
+                    image_address = book['imageAddress']
+                )
+            except:
+                print(f'Data duplicated')
+                continue
+                
+                
+    @classmethod       
+    def get_books_from_db(cls, page):
+        books_as_json = []
+        books = Book.select().where(Book.page == page)
+        
+        for book in books:
+            print(book.title)
+            books_as_json.append(
+                {
+                    'title' : book.title,
+                    'price' : book.price,
+                    'description' : book.description,
+                    'imageAddress' : book.image_address,
+                }
+            )
+        
+        return books_as_json
+        
+        
+        
+        
+
         
             
