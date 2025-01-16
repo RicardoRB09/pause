@@ -76,6 +76,25 @@ class Movie(peewee.Model):
             )
         
         return movies_as_json
+    
+    
+    @classmethod       
+    def get_all_movies_from_db(cls):
+        movies_as_json = []
+        movies = Movie.select()
+        
+        for movie in movies:
+            print(movie.title)
+            movies_as_json.append(
+                {
+                    'title' : movie.title,
+                    'release_date' : movie.release_date,
+                    'overview' : movie.overview,
+                    'poster_path' : image_base_url + movie.image_url,
+                }
+            )
+        
+        return movies_as_json
         
         
 class Book(peewee.Model):
@@ -136,6 +155,24 @@ class Book(peewee.Model):
     def get_books_from_db(cls, page):
         books_as_json = []
         books = Book.select().where(Book.page == page)
+        
+        for book in books:
+            print(book.title)
+            books_as_json.append(
+                {
+                    'title' : book.title,
+                    'price' : book.price,
+                    'description' : book.description,
+                    'imageAddress' : book.image_address,
+                }
+            )
+        
+        return books_as_json
+    
+    @classmethod       
+    def get_all_books_from_db(cls):
+        books_as_json = []
+        books = Book.select()
         
         for book in books:
             print(book.title)

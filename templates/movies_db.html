@@ -1,7 +1,7 @@
-{% extends "base.html" %} {% block title %}Movies{% endblock %} {% block content
-%}
+{% extends "base.html" %} {% block title %}Movies database{% endblock %} {%
+block content %}
 <div class="flex-col col-md-12 d-flex">
-  <p class="p-input-title">Input the TMDB number page to get the movies :</p>
+  <p class="p-input-title">What do you want to see?</p>
 
   <form
     method="post"
@@ -15,10 +15,10 @@
         data-mdb-ripple-init
         class="btn btn-light btn-square-sm mx-3"
         data-mdb-ripple-color="dark"
-        onclick="window.location='{{url_for('home')}}'"
+        onclick="window.location='{{url_for('movies')}}'"
       >
         <img
-          src="{{ url_for('static', filename='img/home.png')}}"
+          src="{{ url_for('static', filename='img/arrow_back.png')}}"
           class="img-btn-home"
         />
       </button>
@@ -27,32 +27,19 @@
     <div class="col-md-8 d-flex justify-content-center align-items-center">
       <div>
         <input
-          type="number"
+          type="search"
           class="form-control input-movie"
           name="movie_page"
           value="{{request.form['movie_page']}}"
-          min="1"
-          placeholder="Input a page number"
+          placeholder="Find some movies"
         />
       </div>
-      <button class="btn-go" type="submit">Go</button>
+      <button class="btn-go" type="submit">Search</button>
     </div>
 
-    <div class="col-md-1 d-flex justify-content-end align-items-end">
-      <button
-        type="button"
-        data-mdb-button-init
-        data-mdb-ripple-init
-        class="btn btn-light btn-square-sm mx-3"
-        data-mdb-ripple-color="dark"
-        onclick="window.location='{{url_for('movies_db')}}'"
-      >
-        <img
-          src="{{ url_for('static', filename='img/database.png')}}"
-          class="img-btn-downloads"
-        />
-      </button>
-    </div>
+    <div
+      class="col-md-1 d-flex justify-content-center align-items-center"
+    ></div>
   </form>
 
   <div
@@ -93,7 +80,9 @@
         src="{{ url_for('static', filename='img/no-movies.png') }}"
         class="img-no-movies"
       />
-      <p class="p-no-movies">No movies available, try another page.</p>
+      <p class="p-no-movies">
+        No movies available in database, search them before.
+      </p>
     </div>
     {% endif %}
   </div>

@@ -36,6 +36,13 @@ def books():
 
 
 
+@app.route('/books_db', methods={'POST', 'GET'})
+def books_db():
+    books = Book.get_all_books_from_db()
+    return render_template('books_db.html', books = books)
+
+
+
 @app.route('/movies', methods=['POST', 'GET'])
 def movies():    
     try:
@@ -50,6 +57,13 @@ def movies():
         Movie.add_data_to_movies_db(movies, page_number)
     
     return render_template('movies.html', movies = movies)
+
+
+
+@app.route('/movies_db', methods={'POST', 'GET'})
+def movies_db():
+    movies = Movie.get_all_movies_from_db()
+    return render_template('movies_db.html', movies = movies)
 
 
 

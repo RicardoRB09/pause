@@ -52,12 +52,6 @@ footer div a{
 }
 
 
-/* .col-content{
-    background-color: red;
-  
-} */
-
-
 .btn-square-md {
     width: 100px !important;
     max-width: 100% !important;
@@ -91,7 +85,7 @@ footer div a{
 }
 
 .container-movie{
-    height: 320px; 
+    height: 400px; 
     overflow-y: auto; 
     border: 1px solid #ccc;
     /* background-color: blue; */
@@ -108,7 +102,7 @@ footer div a{
 }
 
 .container-loading{
-    height: 320px; 
+    height: 400px; 
     overflow-y: auto; 
     border: 1px solid #ccc;
     padding: 16px;
