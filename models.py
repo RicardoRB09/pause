@@ -175,7 +175,6 @@ class Book(peewee.Model):
         books = Book.select()
         
         for book in books:
-            print(book.title)
             books_as_json.append(
                 {
                     'title' : book.title,
@@ -187,6 +186,23 @@ class Book(peewee.Model):
         
         return books_as_json
         
+        
+    @classmethod       
+    def get_matching_books(cls, query):
+        books_as_json = []
+        books = Book.select().where(Book.title.contains(query))
+        
+        for book in books:
+            books_as_json.append(
+                {
+                    'title' : book.title,
+                    'price' : book.price,
+                    'description' : book.description,
+                    'imageAddress' : book.image_address,
+                }
+            )
+        
+        return books_as_json
         
         
         

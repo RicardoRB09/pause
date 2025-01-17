@@ -45,7 +45,6 @@ def scrapBooksByPage(page):
     print(baseUrl)
     
     response = requests.get(baseUrl)
-    print(f'response --> {response.status_code}')
     
     if response.status_code != 200:
         print('⚠️⚠️ Cannot continue with the execution... Try again! ⚠️⚠️\n')
@@ -61,7 +60,6 @@ def scrapBooksByPage(page):
         # print(f'\n\n------------{book}')
         # print(f"\n{book.find('h3').find('a').attrs['href']}")
         scrapSubPages(book.find('h3').find('a').attrs['href'])
-    print(books)
     return books
     
 
