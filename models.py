@@ -95,6 +95,24 @@ class Movie(peewee.Model):
             )
         
         return movies_as_json
+    
+    
+    @classmethod       
+    def get_matching_movies(cls, query):
+        movies_as_json = []
+        movies = Movie.select().where(Movie.title.contains(query))
+        
+        for movie in movies:
+            movies_as_json.append(
+                {
+                    'title' : movie.title,
+                    'release_date' : movie.release_date,
+                    'overview' : movie.overview,
+                    'poster_path' : image_base_url + movie.image_url,
+                }
+            )
+        
+        return movies_as_json
         
         
 class Book(peewee.Model):

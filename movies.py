@@ -1,9 +1,3 @@
-# 🌶🌶🌶 Usando la documentación de la imágenes https://developers.themoviedb.org/3/getting-started/images
-
-# Convierte las URLs de las imágenes en verdaderas imágenes en el HTML (usa el tamaño w500)
-# Crea un menu HTML al inicio del archivo para que enlace ambas páginas y permita navegar entre ellas fácilmente (no se evaluará diseño CSS). El menu HTML puede ser añadido a la tabla manualmente o por código
-
-
 import requests, json, yaml, os
 
 

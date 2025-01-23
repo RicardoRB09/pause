@@ -70,6 +70,12 @@ def movies():
 @app.route('/movies_db', methods={'POST', 'GET'})
 def movies_db():
     movies = Movie.get_all_movies_from_db()
+    
+    try:
+        movies = Movie.get_matching_movies(request.form['query']) 
+    except:
+        print('No matches found')
+    
     return render_template('movies_db.html', movies = movies)
 
 
