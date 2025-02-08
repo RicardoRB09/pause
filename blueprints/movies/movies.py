@@ -8,8 +8,6 @@ movies = []
 base_poster_path_url = 'https://image.tmdb.org/t/p/w200'
 
 
-      
-    
 def get_movies_by_page(page):
     with open(os.path.join(MOVIEDB_CONFIG_FILE), 'r') as config_file:
         try:
