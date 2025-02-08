@@ -1,7 +1,7 @@
-{% extends "base.html" %} {% block title %}Books database{% endblock %}{% block
-content %}
+{% extends "base.html" %} {% block title %}Movies database{% endblock %} {%
+block content %}
 <div class="flex-col col-md-12 d-flex">
-  <p class="p-input-title">What do you want to read?</p>
+  <p class="p-input-title">What do you want to see?</p>
 
   <form
     method="post"
@@ -15,7 +15,7 @@ content %}
         data-mdb-ripple-init
         class="btn btn-light btn-square-sm mx-3"
         data-mdb-ripple-color="dark"
-        onclick="window.location='{{url_for('books')}}'"
+        onclick="window.location='{{url_for('movies_bp.movies')}}'"
       >
         <img
           src="{{ url_for('static', filename='img/arrow_back.png')}}"
@@ -28,10 +28,10 @@ content %}
       <div>
         <input
           type="search"
-          class="form-control input-book"
+          class="form-control input-movie"
           name="query"
           value="{{request.form['query']}}"
-          placeholder="Find some books"
+          placeholder="Find some movies"
         />
       </div>
       <button class="btn-go" type="submit">Search</button>
@@ -53,34 +53,35 @@ content %}
     />
   </div>
 
-  <div id="books-container" class="container container-movie col-md-10">
-    {% if books %}
+  <div id="movies-container" class="container container-movie col-md-10">
+    {% if movies %} {% for movie in movies %}
     <div class="container-movie-list">
-      {% for book in books %}
       <div
         class="justify-content-center align-items-center col-md-12 flex-row pb-3"
       >
-        <img src="{{book['imageAddress']}}" class="book-image" />
+        <img
+          src="{{'https://image.tmdb.org/t/p/w200' + movie['poster_path']}}"
+          class="movie-image"
+        />
         <div>
-          <h5>{{book['title']}}</h5>
-          <h6>{{book['price']}}</h6>
+          <h5>{{movie['title']}}</h5>
+          <h6>{{movie['release_date']}}</h6>
           <b>Overview</b>
-          <p>{{book['description']}}</p>
+          <p>{{movie['overview']}}</p>
         </div>
       </div>
-      {% endfor %}
     </div>
-    {% else %}
+    {% endfor %} {% else %}
 
     <div
-      class="container-no-books justify-content-center align-items-center d-flex flex-column"
+      class="container-no-movies justify-content-center align-items-center d-flex flex-column"
     >
       <img
-        src="{{ url_for('static', filename='img/no_database.png') }}"
+        src="{{ url_for('static', filename='img/no-movies.png') }}"
         class="img-no-movies"
       />
       <p class="p-no-movies">
-        No books available in database, search them before.
+        No movies available in database, search them before.
       </p>
     </div>
     {% endif %}
@@ -90,7 +91,7 @@ content %}
 <script>
   function showLoading() {
     document.getElementById("loading").style.display = "flex";
-    document.getElementById("books-container").style.display = "none";
+    document.getElementById("movies-container").style.display = "none";
   }
 
   window.addEventListener("load", function () {

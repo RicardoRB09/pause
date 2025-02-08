@@ -48,7 +48,6 @@ def scrapBooksByPage(page):
     
     if response.status_code != 200:
         print('⚠️⚠️ Cannot continue with the execution... Try again! ⚠️⚠️\n')
-        # sys.exit()
         return []
     
     beautifulResponse = BeautifulSoup(response.content, 'html.parser')
@@ -57,8 +56,6 @@ def scrapBooksByPage(page):
     liFromOlTagData = olTagData.find_all('li')
 
     for book in liFromOlTagData:
-        # print(f'\n\n------------{book}')
-        # print(f"\n{book.find('h3').find('a').attrs['href']}")
         scrapSubPages(book.find('h3').find('a').attrs['href'])
     return books
     
